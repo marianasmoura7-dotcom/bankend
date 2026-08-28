@@ -48,6 +48,22 @@ app.get('/', (req, res) => {
 
 let proximoId = 7;
 
+app.get('/tarefas/estatisticas', (req, res) => {
+
+
+    let totalTarefas = tarefas;
+    totalTarefas = tarefas.length
+    res.json(`você tem ${totalTarefas} tarefas`);
+
+    let afazer = tarefas
+
+    afazer => {
+        afazer = afazer.filter(t => t.coluna === afazer);
+        res.json(afazer.length)
+    }
+
+});
+
 app.post('/tarefas', (req, res) => {
     const { texto, prioridade, coluna, cidade } = req.body
     const novaTarefa = {
@@ -169,6 +185,8 @@ app.get('/usuarios/:id', (req, res) => {
 
 app.post('/usuarios', (req, res) => {
     const { nome, email, senha } = req.body
+    if (usuarios.find(u => u.email === email))
+        return res.status(400).json({ erro: 'Email já cadastrado' });
     const novoUsuario = {
         id: proximoUsuario++,
         nome: nome,
@@ -182,12 +200,12 @@ app.post('/usuarios', (req, res) => {
 
 
 app.put('/usuarios/:id', (req, res) => {
-const id = Number(req.params.id);
-const index = usuarios.findIndex(u => u.id === id);
-if (index === -1) return res.status(404).json({ erro: ' usuario Não encontrado' });
-usuarios[index] = { id, ...req.body };
-res.json(usuarios[index]);
-}); 
+    const id = Number(req.params.id);
+    const index = usuarios.findIndex(u => u.id === id);
+    if (index === -1) return res.status(404).json({ erro: ' usuario Não encontrado' });
+    usuarios[index] = { id, ...req.body };
+    res.json(usuarios[index]);
+});
 
 
 app.delete('/usuarios/:id', (req, res) => {
@@ -223,5 +241,5 @@ app.use((req, res) => {
         caminho: req.url,
     });
 });
-app.listen(PORTA, () => console.log(`Porta ${PORTA}`));
+// app.listen(PORTA, () => console.log(`Porta ${PORTA}`));
 
