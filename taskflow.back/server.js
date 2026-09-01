@@ -1,6 +1,8 @@
 const express = require('express');
 const PORTA = 3000
 const app = express();
+const tarefasRoutes = require('./src/routes/tarefas.routes');
+
 let tarefas = [{
     id: 1,
     texto: 'Estudar Node',
@@ -40,7 +42,7 @@ let tarefas = [{
     coluna: 'afazer'
 }
 ]
-app.use(express.json());
+app.use('/tarefas', tarefasRoutes);
 
 app.get('/', (req, res) => {
     res.json({ mensagem: 'TaskFlow API funcionando!' });
