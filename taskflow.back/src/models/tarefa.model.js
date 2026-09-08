@@ -1,26 +1,20 @@
 let tarefas = [
     {
         id: 1,
-        usuarioid: 1,
+        usuarioId: 1,
         texto: 'Estudar Node.js',
         prioridade: 'alta',
         coluna: 'andamento'
     },
     {
         id: 2,
+        usuarioId: 2,
         texto: 'Fazer exercícios',
         prioridade: 'media',
         coluna: 'afazer'
     },
 ];
-let usuarios = [
-    {
-        id: 1,
-        nome: 'mariana',
-        email: 'mariana@gmail.com',
-        senha: '12344'
-    },
-]
+
 let proximoUsuario = 2
 let proximoId = 3;
 
@@ -30,11 +24,11 @@ module.exports = {
     buscar: (id) => tarefas.find(t => t.id === id),
     adicionar: ({ texto, prioridade, coluna }) => {
         const nova = {
-            usuario: proximoUsuario++,
-            id: proximoId++, texto,
+            id: proximoId++,
+            texto,
             prioridade: prioridade || 'media',
-            coluna: coluna || 'afazer'
-            
+            coluna: coluna || 'afazer',
+            usuarioId: usuarioId ? parseInt(usuarioId) : null
         };
         tarefas.push(nova);
         return nova;

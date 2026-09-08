@@ -1,4 +1,5 @@
 const tarefaModel = require('../models/tarefa.model');
+const usuarioModel = require('../models/usuario.model')
 
 const tarefasController = {
     listar(req, res) {
@@ -14,10 +15,22 @@ const tarefasController = {
         res.json(tarefa);
     },
     criar(req, res) {
-        const { texto, coluna } = req.body;
-        let colunatexto = 'afazer' || 'andamento' || 'concluida'
+        const { texto, usuarioId } = req.body;
+    
         if (!texto) return res.status(400).json({ erro: 'Texto obrigatório' });
-        if (coluna === !colunatexto) return res.status(400).json ({ erro: 'insira uma das coluna: "afazer", "andamento" ou "concluida" '})
+        if (prioridade && !['alta', 'media', 'baixa'].includes(prioridade)) {
+            return res.status(400).json({ erro: 'Prioridade inválida. Use: alta, media ou baixa' });
+        }
+        // Validação de Coluna 
+        if (coluna && !['afazer', 'andamento', 'concluido'].includes(coluna)) {
+            return res.status(400).json({ erro: 'Coluna inválida. Use: afazer, andamento ou concluido' });
+        }
+        if (usuarioId) {
+            const usuarioExiste = usuarioModel.buscar(parseInt(usuarioId));
+            if (!usuarioExiste) {
+                return res.status(400).json({ erro: 'Usuário não encontrado' });
+            }
+        }
         res.status(201).json(tarefaModel.adicionar(req.body));
     },
     atualizar(req, res) {
