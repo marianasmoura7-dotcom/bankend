@@ -12,14 +12,14 @@ const usuariosController = {
     },
     criar(req, res) {
         const { nome, email, senha } = req.body;
-        if (!nome || !email) return res.status(400).json({ erro: 'nome e email obrigatório' });
+        // if (!nome || !email) return res.status(400).json({ erro: 'nome e email obrigatório' });
         res.status(201).json(usuarioModel.adicionar(req.body));
     },
     atualizar(req, res) {
         const atualizado = usuarioModel.atualizar(parseInt(req.params.id), req.body);
-        if (!atualizado) return res.status(404).json({
-            erro: 'usuario não encontrado'
-        });
+        // if (!atualizado) return res.status(404).json({
+        //     erro: 'usuario não encontrado'
+        // });
         res.json(atualizado);
     },
     remover(req, res) {

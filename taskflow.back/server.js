@@ -11,6 +11,7 @@ const projetosRoutes = require('./src/routes/projetos.routes');
 const logger = require('./src/middlewares/logger');
 const validarContentType = require('./src/middlewares/validarContentType')
 const cors = require('cors');
+
 // const corsMiddleware = require('./src/middlewares/cors');
 
 

@@ -22,7 +22,7 @@ module.exports = {
     listar: () => tarefas,
     listarPorColuna: (coluna) => tarefas.filter(t => t.coluna === coluna),
     buscar: (id) => tarefas.find(t => t.id === id),
-    adicionar: ({ texto, prioridade, coluna }) => {
+    adicionar: ({ texto, prioridade, coluna, usuarioId }) => {
         const nova = {
             id: proximoId++,
             texto,
