@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 
 const PORTA = process.env.PORTA || 3000;
-
+const authRoutes = require('./src/routes/auth.routes');
 const app = express();
 const tarefasRoutes = require('./src/routes/tarefas.routes');
 const usuariosRoutes = require('./src/routes/usuarios.routes');
@@ -26,7 +26,8 @@ app.use(validarContentType);
 app.use(logger);
 app.use('/tarefas', tarefasRoutes);
 app.use('/usuarios', usuariosRoutes);
-app.use('/projetos', projetosRoutes)
+app.use('/projetos', projetosRoutes);
+app.use('/auth', authRoutes);
 
 app.listen(PORTA, () => {
     console.log(`Servidor rodando em http://localhost:${PORTA}`);
