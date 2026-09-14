@@ -11,9 +11,15 @@ const projetosRoutes = require('./src/routes/projetos.routes');
 const logger = require('./src/middlewares/logger');
 const validarContentType = require('./src/middlewares/validarContentType')
 const cors = require('cors');
+const autenticar = require('./src/middlewares/autenticar');
 
-// const corsMiddleware = require('./src/middlewares/cors');
+app.use(express.json());
+app.use('/auth', authRoutes); // POST /auth/login
 
+app.use(cors( ));
+app.use('/tarefas', autenticar, tarefasRoutes);
+app.use('/usuarios', autenticar, usuariosRoutes);
+app.use('/projetos', autenticar, projetosRoutes);
 
 app.use(cors({ origin: process.env.CORS_ORIGIN || 'localhost:5173', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -21,13 +27,13 @@ app.use(cors({ origin: process.env.CORS_ORIGIN || 'localhost:5173',
     
 }));
 
-app.use(express.json());
+
 app.use(validarContentType);
 app.use(logger);
-app.use('/tarefas', tarefasRoutes);
-app.use('/usuarios', usuariosRoutes);
-app.use('/projetos', projetosRoutes);
-app.use('/auth', authRoutes);
+// app.use('/tarefas', tarefasRoutes);
+// app.use('/usuarios', usuariosRoutes);
+// app.use('/projetos', projetosRoutes);
+// app.use('/auth', authRoutes);
 
 app.listen(PORTA, () => {
     console.log(`Servidor rodando em http://localhost:${PORTA}`);
