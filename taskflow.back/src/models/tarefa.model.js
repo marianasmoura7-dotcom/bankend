@@ -29,7 +29,7 @@ module.exports = {
             prioridade: prioridade || 'media',
             coluna: coluna || 'afazer',
             usuarioId: usuarioId ? parseInt(usuarioId) : null
-        };
+        };          
         tarefas.push(nova);
         return nova;
     },

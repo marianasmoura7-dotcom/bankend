@@ -18,7 +18,7 @@ app.use('/auth', authRoutes); // POST /auth/login
 
 app.use(cors( ));
 app.use('/tarefas', autenticar, tarefasRoutes);
-app.use('/usuarios', autenticar, usuariosRoutes);
+// app.use('/usuarios', autenticar, usuariosRoutes);
 app.use('/projetos', autenticar, projetosRoutes);
 
 app.use(cors({ origin: process.env.CORS_ORIGIN || 'localhost:5173', 
@@ -31,7 +31,7 @@ app.use(cors({ origin: process.env.CORS_ORIGIN || 'localhost:5173',
 app.use(validarContentType);
 app.use(logger);
 // app.use('/tarefas', tarefasRoutes);
-// app.use('/usuarios', usuariosRoutes);
+app.use('/usuarios', usuariosRoutes);
 // app.use('/projetos', projetosRoutes);
 // app.use('/auth', authRoutes);
 

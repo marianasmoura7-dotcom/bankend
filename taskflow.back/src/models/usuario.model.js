@@ -1,13 +1,13 @@
 let usuarios = [
     {
         id: 1,
-        nome: 'mariana',
+        nome: 'Mariana',
         email: 'mariana@gmail.com',
         senha: '12344'
     },
     {
         id: 2,
-        nome: 'cleiton',
+        nome: 'Cleiton',
         email: 'cleitondograu@gmail.com',
         senha: 'amoDeus123'
     },
