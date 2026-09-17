@@ -48,7 +48,7 @@ const tarefasController = {
         // if (!atualizada) return res.status(404).json({
         //     erro: 'Tarefa não encontrada'
         // });
-        // res.json(atualizada);
+        res.json(atualizada);
     },
         remover(req, res) {
     const removida = tarefaModel.remover(parseInt(req.params.id));

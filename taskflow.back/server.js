@@ -13,10 +13,11 @@ const validarContentType = require('./src/middlewares/validarContentType')
 const cors = require('cors');
 const autenticar = require('./src/middlewares/autenticar');
 
+app.use(cors( ));
 app.use(express.json());
 app.use('/auth', authRoutes); // POST /auth/login
 
-app.use(cors( ));
+
 app.use('/tarefas', autenticar, tarefasRoutes);
 // app.use('/usuarios', autenticar, usuariosRoutes);
 app.use('/projetos', autenticar, projetosRoutes);
