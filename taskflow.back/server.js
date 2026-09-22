@@ -49,5 +49,5 @@ app.use((req, res) => {
         caminho: req.url,
     });
 });
-// app.listen(PORTA, () => console.log(`Porta ${PORTA}`));
 
+module.exports = app;
