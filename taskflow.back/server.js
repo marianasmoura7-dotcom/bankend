@@ -14,7 +14,7 @@ const cors = require('cors');
 const autenticar = require('./src/middlewares/autenticar');
 
 app.use(cors({ origin: process.env.CORS_ORIGIN || 'https://taskflow-beta-dun.vercel.app', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     
 }));
