@@ -13,7 +13,7 @@ const validarContentType = require('./src/middlewares/validarContentType')
 const cors = require('cors');
 const autenticar = require('./src/middlewares/autenticar');
 
-app.use(cors({ origin: process.env.CORS_ORIGIN || 'localhost:5173'|| 'https://taskflow-beta-dun.vercel.app', 
+app.use(cors({ origin: process.env.CORS_ORIGIN || 'https://taskflow-beta-dun.vercel.app', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     
