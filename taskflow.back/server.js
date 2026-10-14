@@ -15,15 +15,22 @@ const projetosRoutes = require('./src/routes/projetos.routes');
 const logger = require('./src/middlewares/logger');
 const validarContentType = require('./src/middlewares/validarContentType')
 const autenticar = require('./src/middlewares/autenticar');
-
+const pool = require('./src/database/db');
 const app = express();
 
 app.use(cors({ 
-    origin: 'https://taskflow-beta-dun.vercel.app', 
+    origin: ['https://taskflow-beta-dun.vercel.app' , 'http://localhost:5173' ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     
 }));
+pool.query('SELECT NOW()', (err, res) => {
+  if (err) {
+    console.error(' Erro ao conectar ao banco de dados usando o Pool:', err.stack);
+  } else {
+    console.log(' Conexão com o Pool estabelecida com sucesso! Hora do banco:', res.rows[0].now);
+  }
+});
 app.use(express.json());
 app.use(logger);
 
@@ -36,16 +43,9 @@ app.use('/tarefas', autenticar, tarefasRoutes);
 app.use('/usuarios', usuariosRoutes);
 app.use('/projetos', autenticar, projetosRoutes);
 
-
-
-
-// app.use(validarContentType);
-
-// app.use('/tarefas', tarefasRoutes);
-
-// app.use('/projetos', projetosRoutes);
-// app.use('/auth', authRoutes);
-
+app.listen(PORTA, () => {
+    console.log(`Servidor rodando em http://localhost:${PORTA}`); 
+});
 
 app.use((req, res) => {
     res.status(404).json({

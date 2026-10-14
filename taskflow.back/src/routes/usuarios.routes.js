@@ -5,9 +5,9 @@ const validar = require ('../middlewares/validar');
 const schemas = require('../middlewares/schemas');
 
 router.get('/', usuariosController.listar);
-router.post('/', validar(schemas.usuario), usuariosController.criar);
+router.post('/',  usuariosController.criar); //validar(schemas.usuario),
 router.get('/:id', usuariosController.buscarPorId);
-router.put('/:id', validar(schemas.usuario), usuariosController.atualizar);
+router.put('/:id', usuariosController.atualizar); //, validar(schemas.usuario)
 router.delete('/:id', usuariosController.remover);
 
 

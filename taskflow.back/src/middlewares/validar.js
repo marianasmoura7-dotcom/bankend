@@ -12,7 +12,7 @@ function validar(schema) {
             if (!ausente && regras.tipo && typeof valor !== regras.tipo) {
 
                 erros.push(
-                    `O campo '${campo}' deve ser do tipo ${regras.tipo}`
+                    `O  '${campo}' deve ser do tipo ${regras.tipo}`
                 );
 
             }

@@ -1,50 +1,40 @@
-let usuarios = [
-    {
-        id: 1,
-        nome: 'Mariana',
-        email: 'mariana@gmail.com',
-        senha: '12344'
-    },
-    {
-        id: 2,
-        nome: 'Cleiton',
-        email: 'cleitondograu@gmail.com',
-        senha: 'amoDeus123'
-    },
+const pool = require('../database/db.js');
 
-
-    {
-        id: 3,
-        nome: 'Alice',
-        email: 'alice@email.com',
-        senha: '123456'
-
-    }
-
-];
-let proximoId = 4;
 module.exports = {
-    listar: () => usuarios,
-    buscar: (id) => usuarios.find(u => u.id === id),
-    buscarPorEmail: (email) => usuarios.find(u => u.email === email),
-    adicionar: ({ nome, email, senha }) => {
-        const novo = {
-            id: proximoId++, nome,
-            email,
-            senha
-        };
-        usuarios.push(novo);
-        return novo;
+
+    listar: async () => {
+        const result = await pool.query(
+            'SELECT * FROM usuarios ORDER BY id');
+        return result.rows;
     },
-    atualizar: (id, dados) => {
-        const idx = usuarios.findIndex(u => u.id === id);
-        if (idx === -1) return null;
-        usuarios[idx] = { ...usuarios[idx], ...dados, id };
-        return usuarios[idx];
+    buscar: async (id) => {
+        const result = await pool.query('SELECT * FROM usuarios WHERE id = $1',
+            [id]
+        );
+        return result.rows[0] || null;
     },
-    remover: (id) => {
-        const idx = usuarios.findIndex(u => u.id === id);
-        if (idx === -1) return null;
-        return usuarios.splice(idx, 1)[0];
+    buscarPorEmail: async (email) => {
+        const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
+        return result.rows[0] || null;
     },
+    adicionar: async ({ nome, email, senha_hash }) => {
+        const result = await pool.query(
+            'INSERT INTO usuarios (nome, email, senha_hash) VALUES ($1, $2, $3) RETURNING *',
+            [nome, email, senha_hash]
+        );
+        return result.rows[0];
+    },
+
+    atualizar: async (id, dados) => {
+        const { nome, email, senha_hash } = dados;
+        const result = await pool.query(
+            'UPDATE usuarios SET nome = $1, email = $2, senha_hash = $3 WHERE id = $4 RETURNING *',
+            [nome, email, senha_hash, id]
+        );
+        return result.rows[0];
+    },
+    remover: async (id) => {
+        const result = await pool.query('DELETE FROM usuarios WHERE id = $1 RETURNING *', [id]);
+        return result.rows[0];
+    }
 };
