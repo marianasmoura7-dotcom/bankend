@@ -11,7 +11,7 @@ const tarefasController = {
     },
     async buscarPorId(req, res) {
         const tarefa = await tarefaModel.buscar(parseInt(req.params.id));
-        // if (!tarefa) return res.status(404).json({ erro: 'Tarefa não encontrada' });
+        if (!tarefa) return res.status(404).json({ erro: 'Tarefa não encontrada' });
         res.json(tarefa);
     },
     async criar(req, res) {
@@ -20,12 +20,7 @@ const tarefasController = {
             return res.status(400).json({ erro: 'texto, usuario_id e idprojeto são obrigatórios' });
         }
         
-        console.log(req.usuario);
-        const dados = {
-            ...req.body,
-            usuarioId: req.usuario.id, // vem do token
-        };
-        res.status(201).json(await tarefaModel.adicionar(dados));
+        res.status(201).json(await tarefaModel.adicionar({texto, id_prioridade, coluna, usuario_id, idprojeto}));
     },
     async atualizar(req, res) {
         const atualizada = await tarefaModel.atualizar(parseInt(req.params.id), req.body);

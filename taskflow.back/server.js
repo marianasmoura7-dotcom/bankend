@@ -39,9 +39,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/auth', authRoutes); // POST /auth/login
-app.use('/tarefas', autenticar, tarefasRoutes);
+app.use('/tarefas',  tarefasRoutes); //autenticar,
 app.use('/usuarios', usuariosRoutes);
-app.use('/projetos', autenticar, projetosRoutes);
+app.use('/projetos',  projetosRoutes); //autenticar,
 
 app.listen(PORTA, () => {
     console.log(`Servidor rodando em http://localhost:${PORTA}`); 

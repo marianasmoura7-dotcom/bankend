@@ -1,7 +1,6 @@
 const pool = require('../database/db.js');
 
 module.exports = {
-
     listar: async () => {
         const result = await pool.query(
             'SELECT * FROM usuarios ORDER BY id');
@@ -24,7 +23,6 @@ module.exports = {
         );
         return result.rows[0];
     },
-
     atualizar: async (id, dados) => {
         const { nome, email, senha_hash } = dados;
         const result = await pool.query(
@@ -35,6 +33,6 @@ module.exports = {
     },
     remover: async (id) => {
         const result = await pool.query('DELETE FROM usuarios WHERE id = $1 RETURNING *', [id]);
-        return result.rows[0];
-    }
+        return result.rows[0] || null;
+    },
 };
