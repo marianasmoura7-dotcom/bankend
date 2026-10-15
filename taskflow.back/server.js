@@ -9,7 +9,7 @@ const authRoutes = require('./src/routes/auth.routes');
 const tarefasRoutes = require('./src/routes/tarefas.routes');
 const usuariosRoutes = require('./src/routes/usuarios.routes');
 const projetosRoutes = require('./src/routes/projetos.routes');
-
+const tratarErros = require('./src/middlewares/erro.middleware');
 
 
 const logger = require('./src/middlewares/logger');
@@ -42,7 +42,7 @@ app.use('/auth', authRoutes); // POST /auth/login
 app.use('/tarefas',  tarefasRoutes); //autenticar,
 app.use('/usuarios', usuariosRoutes);
 app.use('/projetos',  projetosRoutes); //autenticar,
-
+app.use(tratarErros);
 app.listen(PORTA, () => {
     console.log(`Servidor rodando em http://localhost:${PORTA}`); 
 });
