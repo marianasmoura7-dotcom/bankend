@@ -1,6 +1,6 @@
 const tarefaModel = require('../models/tarefa.model');
 const usuarioModel = require('../models/usuario.model')
-const criarErro = require( '../utils/criarErro');  
+const criarErro = require('../utils/criarErro');
 const tarefasController = {
     async listar(req, res) {
         const { coluna } = req.query;

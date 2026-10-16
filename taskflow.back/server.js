@@ -5,19 +5,18 @@ const cors = require('cors');
 
 const PORTA = process.env.PORTA || 3000;
 
-const authRoutes = require('./src/routes/auth.routes');
+// const authRoutes = require('./src/routes/auth.routes');
 const tarefasRoutes = require('./src/routes/tarefas.routes');
 const usuariosRoutes = require('./src/routes/usuarios.routes');
 const projetosRoutes = require('./src/routes/projetos.routes');
+
 const tratarErros = require('./src/middlewares/erro.middleware');
-
-
 const logger = require('./src/middlewares/logger');
 const validarContentType = require('./src/middlewares/validarContentType')
 const autenticar = require('./src/middlewares/autenticar');
 const pool = require('./src/database/db');
 const app = express();
-
+const criarErro = require('./src/utils/criarErro');
 app.use(cors({ 
     origin: ['https://taskflow-beta-dun.vercel.app' , 'http://localhost:5173' ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -38,7 +37,7 @@ app.get('/', (req, res) => {
   res.json({ mensagem: 'API TaskFlow rodando com sucesso!' });
 });
 
-app.use('/auth', authRoutes); // POST /auth/login
+// app.use('/auth', authRoutes); // POST /auth/login
 app.use('/tarefas',  tarefasRoutes); //autenticar,
 app.use('/usuarios', usuariosRoutes);
 app.use('/projetos',  projetosRoutes); //autenticar,
