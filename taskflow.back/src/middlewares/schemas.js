@@ -1,9 +1,11 @@
 const schemas = {
+    id:  {id: { obrigatorio: true, tipo: 'integer' }},
     tarefa: {
         texto: { obrigatorio: true, tipo: 'string' },
-        prioridade: { obrigatorio: true, tipo: "string", enum: ['alta', 'media', 'baixa'] },
+        id_prioridade: { obrigatorio: true, tipo: "integer" },
         coluna: { obrigatorio: true, tipo: "string", enum: ['afazer', 'andamento', 'concluido'] },
-        usuarioId: { obrigatorio: false, tipo: 'number' },
+        usuarioId: { obrigatorio: true, tipo: 'integer' },
+        idprojeto: { obrigatorio: true, tipo: 'integer' },
     },
     usuario: {
         nome: { obrigatorio: true, tipo: 'string', minLength: 3 },

@@ -13,7 +13,7 @@ module.exports = {
         return result.rows[0] || null;
     },
     buscarPorEmail: async (email) => {
-        const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
+        const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]); 
         return result.rows[0] || null;
     },
     adicionar: async ({ nome, email, senha_hash }) => {

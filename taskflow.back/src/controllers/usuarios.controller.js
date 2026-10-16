@@ -1,14 +1,19 @@
 const nodemon = require('nodemon');
 const tarefaModel = require('../models/tarefa.model');
 const usuarioModel = require('../models/usuario.model');
+const criarErro = require('../utils/criarErro');
 
 const usuariosController = {
     async listar(req, res) {
-        res.json(await usuarioModel.listar());
+        const {email} = req.query;
+        const resultado = email
+            ? await usuarioModel.buscarPorEmail(email)
+            : await usuarioModel.listar();
+        res.json(resultado);
     },
     async buscarPorId(req, res) {
         const usuario = await usuarioModel.buscar(parseInt(req.params.id));
-        if (!usuario) return res.status(404).json({ erro: 'usuario não encontrado' });
+        if (!usuario) throw criarErro(404, 'usuario não encontrado');
         res.json(usuario);
     },
     async criar(req, res) {
@@ -18,14 +23,12 @@ const usuariosController = {
     },
     async atualizar(req, res) {
         const atualizado = await usuarioModel.atualizar(parseInt(req.params.id), req.body);
-        // if (!atualizado) return res.status(404).json({
-        //     erro: 'usuario não encontrado'
-        // });
+        if (!atualizado) throw criarErro(404, 'usuario não encontrado');
         res.json(atualizado);
     },
     async remover(req, res) {
         const removida = await usuarioModel.remover(parseInt(req.params.id));
-        if (!removida) return res.status(404).json({ erro: 'usuario não encontrado' });
+        if (!removida) throw criarErro(404, 'usuario não encontrado');
         res.json({ mensagem: 'usuario removido', usuario: removida });
     },
     };

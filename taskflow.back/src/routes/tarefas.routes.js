@@ -7,9 +7,9 @@ const autenticar = require('../middlewares/autenticar');
 
 router.get('/', tarefasController.listar);
 router.get('/:id', tarefasController.buscarPorId);
-router.post('/',tarefasController.criar);   //,autenticar,validar(schemas.tarefa)
-router.put('/:id',tarefasController.atualizar); //autenticar,validar(schemas.tarefa),
-router.delete('/:id',autenticar, tarefasController.remover);
+router.post('/', validar(schemas.tarefa), tarefasController.criar);   //
+router.put('/:id', validar(schemas.tarefa), tarefasController.atualizar); //autenticar,validar(schemas.tarefa),
+router.delete('/:id',  tarefasController.remover);
 
 
 
