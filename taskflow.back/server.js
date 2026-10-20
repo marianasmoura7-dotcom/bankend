@@ -9,6 +9,7 @@ const PORTA = process.env.PORTA || 3000;
 const tarefasRoutes = require('./src/routes/tarefas.routes');
 const usuariosRoutes = require('./src/routes/usuarios.routes');
 const projetosRoutes = require('./src/routes/projetos.routes');
+const prioridadesRoutes = require('./src/routes/prioridade.routes');
 
 const tratarErros = require('./src/middlewares/erro.middleware');
 const logger = require('./src/middlewares/logger');
@@ -17,11 +18,11 @@ const autenticar = require('./src/middlewares/autenticar');
 const pool = require('./src/database/db');
 const app = express();
 const criarErro = require('./src/utils/criarErro');
-app.use(cors({ 
-    origin: ['https://taskflow-beta-dun.vercel.app' , 'http://localhost:5173' ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    
+app.use(cors({
+  origin: ['https://taskflow-beta-dun.vercel.app', 'http://localhost:5173'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+
 }));
 pool.query('SELECT NOW()', (err, res) => {
   if (err) {
@@ -38,20 +39,18 @@ app.get('/', (req, res) => {
 });
 
 // app.use('/auth', authRoutes); // POST /auth/login
-app.use('/tarefas',  tarefasRoutes); //autenticar,
+app.use('/tarefas', tarefasRoutes); //autenticar,
 app.use('/usuarios', usuariosRoutes);
-app.use('/projetos',  projetosRoutes); //autenticar,
+app.use('/projetos', projetosRoutes); //autenticar,
+app.use('/prioridades', prioridadesRoutes); 
 app.use(tratarErros);
 app.listen(PORTA, () => {
-    console.log(`Servidor rodando em http://localhost:${PORTA}`); 
+  console.log(`Servidor rodando em http://localhost:${PORTA}`);
 });
 
 app.use((req, res) => {
-    res.status(404).json({
-        erro: 'Rota não encontrada',
-        metodo: req.method,
-        caminho: req.url,
-    });
+  const rota = `${req.method} ${req.url}`;
+    throw criarErro(404, `Rota não encontrada: ${rota}`,);
 });
-
+app.use(tratarErros);
 module.exports = app;

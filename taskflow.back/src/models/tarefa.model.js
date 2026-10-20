@@ -22,6 +22,7 @@ module.exports = {
     },
     atualizar: async (id, dados) => {
         const { texto, id_prioridade, coluna, usuario_id } = dados;
+     
         const result = await pool.query(
             'UPDATE tarefas SET texto = $1, id_prioridade = $2, coluna = $3, usuario_id = $4 WHERE id = $5 RETURNING *',
             [texto, id_prioridade, coluna, usuario_id, id]

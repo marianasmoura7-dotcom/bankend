@@ -1,5 +1,5 @@
 const schemas = {
-    id:  {id: { obrigatorio: true, tipo: 'integer' }},
+    id: { id: { obrigatorio: true, tipo: 'integer' } },
     tarefa: {
         texto: { obrigatorio: true, tipo: 'string' },
         id_prioridade: { obrigatorio: true, tipo: "integer" },
@@ -16,6 +16,11 @@ const schemas = {
     projeto: {
         nome: { obrigatorio: true, tipo: 'string' },
         descricao: { obrigatorio: false, tipo: 'string', maxLength: 200 },
+    },
+    filtroTarefas: {
+        usuarioId: {
+            obrigatorio: false, tipo: "inteiro"
+        },
     }
 };
 
