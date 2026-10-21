@@ -3,4 +3,4 @@ const prioridadeController = {
     async listar(req, res) { res.json(await prioridadeModel.listar()); },
 }
 
-module.exports = prioridadeController;
+module.exports = prioridadeController;     

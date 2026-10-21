@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const PORTA = process.env.PORTA || 3000;
 
-// const authRoutes = require('./src/routes/auth.routes');
+const authRoutes = require('./src/routes/auth.routes');
 const tarefasRoutes = require('./src/routes/tarefas.routes');
 const usuariosRoutes = require('./src/routes/usuarios.routes');
 const projetosRoutes = require('./src/routes/projetos.routes');
@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
   res.json({ mensagem: 'API TaskFlow rodando com sucesso!' });
 });
 
-// app.use('/auth', authRoutes); // POST /auth/login
+app.use('/auth', authRoutes); // POST /auth/login
 app.use('/tarefas', tarefasRoutes); //autenticar,
 app.use('/usuarios', usuariosRoutes);
 app.use('/projetos', projetosRoutes); //autenticar,
@@ -47,7 +47,6 @@ app.use(tratarErros);
 app.listen(PORTA, () => {
   console.log(`Servidor rodando em http://localhost:${PORTA}`);
 });
-
 app.use((req, res) => {
   const rota = `${req.method} ${req.url}`;
     throw criarErro(404, `Rota não encontrada: ${rota}`,);

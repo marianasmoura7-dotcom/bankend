@@ -1,5 +1,4 @@
 const tarefas = [];
-
 function listarTodas() {
     return tarefas;
 }
@@ -10,14 +9,4 @@ function adicionar(tarefa) {
     tarefas.push(tarefa);
     return tarefa;
 }
-
-
-
-
-
-
-
-
-
-
 module.exports = { listarTodas, buscarPorId, adicionar };
