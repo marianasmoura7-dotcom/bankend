@@ -21,6 +21,7 @@ module.exports = {
         return result.rows[0];
     },
     atualizar: async (id, dados) => {
+        // const resultadoAtual
         const { texto, id_prioridade, coluna, usuario_id } = dados;
      
         const result = await pool.query(
