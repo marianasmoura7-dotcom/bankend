@@ -1,12 +1,12 @@
 const pool = require('../database/db.js');
 const prisma = require('../database/prisma')
-const incluirNomes={
-    projetos: {select : {nome: true}},
-    usuarios: {select:{ nome:true}},
+const incluirNomes = {
+    projetos: { select: { nome: true } },
+    usuarios: { select: { nome: true } },
     // prioridade:{ select: {descricao: }}
 }
 module.exports = {
-   
+
     listar: async () => {
         const resultado = await prisma.prioridade.findMany({
             select: {
@@ -31,16 +31,18 @@ module.exports = {
             }
         })
         return prisma.tarefas.findMany({
-            include:incluirNomes,
-            orderby: {id:'asc'},
+            include: incluirNomes,
+            orderby: { id: 'asc' },
         })
     },
 
     buscar: async (id) => {
-        const result = await pool.query('SELECT * FROM tarefas WHERE id = $1',
-            [id]
-        );
-        return result.rows[0] || null;
+        const tarefa = await prisma.tarefas.findUnique({
+            where: { id },
+            include: incluirNomes,
+        });
+
+        return tarefa ? formatarTarefa(tarefa) : null;
     },
     adicionar: async ({ texto, id_prioridade, coluna, usuario_id, idprojeto }) => {
         const result = await pool.query(
