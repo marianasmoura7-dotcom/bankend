@@ -1,3 +1,5 @@
+
+
 function tratarErros(erro,req,res,  next)   {
     const status = erro.status || 500;
     console.error ('[ERRO]', erro.message);

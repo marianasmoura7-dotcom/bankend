@@ -42,14 +42,14 @@ app.use('/auth', authRoutes); // POST /auth/login
 app.use('/tarefas', tarefasRoutes); //autenticar,
 app.use('/usuarios', usuariosRoutes);
 app.use('/projetos', projetosRoutes); //autenticar,
-app.use('/prioridades', prioridadesRoutes); 
+app.use('/prioridades', prioridadesRoutes);
 app.use(tratarErros);
 app.listen(PORTA, () => {
   console.log(`Servidor rodando em http://localhost:${PORTA}`);
 });
 app.use((req, res) => {
   const rota = `${req.method} ${req.url}`;
-    throw criarErro(404, `Rota não encontrada: ${rota}`,);
+  throw criarErro(404, `Rota não encontrada: ${rota}`,);
 });
 app.use(tratarErros);
 module.exports = app;

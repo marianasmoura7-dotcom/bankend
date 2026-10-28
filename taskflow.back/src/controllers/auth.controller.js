@@ -8,7 +8,7 @@ const authController = {
         if (!email || !senha_hash) {
             throw criarErro(400, 'Email e senha são obrigatórios');
         }
-        const usuario = await usuarioModel.buscarPorEmail(email);
+        const usuario = await usuarioModel.buscarPorEmailAuth(email);
         if (!usuario)
             throw criarErro(401, 'Credenciais inválidas');
         if (usuario.senha_hash !== senha_hash)

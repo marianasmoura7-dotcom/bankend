@@ -7,5 +7,7 @@ const prioridadeModel = {
             where: {ativo:true},
             orderBy:{id: 'asc'}
         })
+        return resultado
     }
 }
+module.exports = prioridadeModel
