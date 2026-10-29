@@ -10,11 +10,12 @@ const tarefasRoutes = require('./src/routes/tarefas.routes');
 const usuariosRoutes = require('./src/routes/usuarios.routes');
 const projetosRoutes = require('./src/routes/projetos.routes');
 const prioridadesRoutes = require('./src/routes/prioridade.routes');
+const swaggerUi = require('swagger-ui-express');
+const openapi = require('./src/docs/openapi');
+
 
 const tratarErros = require('./src/middlewares/erro.middleware');
 const logger = require('./src/middlewares/logger');
-const validarContentType = require('./src/middlewares/validarContentType')
-const autenticar = require('./src/middlewares/autenticar');
 const pool = require('./src/database/db');
 const app = express();
 const criarErro = require('./src/utils/criarErro');
@@ -43,13 +44,18 @@ app.use('/tarefas', tarefasRoutes); //autenticar,
 app.use('/usuarios', usuariosRoutes);
 app.use('/projetos', projetosRoutes); //autenticar,
 app.use('/prioridades', prioridadesRoutes);
-app.use(tratarErros);
+
 app.listen(PORTA, () => {
   console.log(`Servidor rodando em http://localhost:${PORTA}`);
 });
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapi));
+
 app.use((req, res) => {
   const rota = `${req.method} ${req.url}`;
   throw criarErro(404, `Rota não encontrada: ${rota}`,);
 });
+
 app.use(tratarErros);
+
 module.exports = app;
