@@ -6,10 +6,10 @@ const schemas = require('../middlewares/schemas');
 const autenticar = require('../middlewares/autenticar');
 const idValido = validar (schemas.id, 'params');
 
-router.get('/',autenticar,validar(schemas.tarefa), tarefasController.listar);
+router.get('/',autenticar, tarefasController.listar);
 router.get('/:id', idValido, tarefasController.buscarPorId);
-router.post('/', tarefasController.criar);   //,validar(schemas.tarefa)
-router.put('/:id', tarefasController.atualizar); //autenticar,validar(schemas.tarefa),
+router.post('/',validar(schemas.tarefa), tarefasController.criar);   //
+router.put('/:id', validar(schemas.tarefa),tarefasController.atualizar); //autenticar
 router.delete('/:id', idValido, tarefasController.remover);
 
 module.exports = router;

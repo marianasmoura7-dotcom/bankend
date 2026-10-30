@@ -1,5 +1,5 @@
 const tarefas =require ('./tarefas.docs');
-
+const comum = require('./comum' )
 module.exports = {
     openapi: "3.0.3",
     info: {
@@ -9,6 +9,18 @@ module.exports = {
 
     },
     serves: [{url: ' http://localhost:3000' , description: 'Local'}],
+    security: [{bearerAuth: [] }],
     paths : {...tarefas.paths},
+    
+    components: {
+        securitySchemes :{
+            bearerAuth:{
+                type:'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT',
+                schemas:{...comum.schemas, ...tarefas.schemas}
+            },
+        },
+    },
 };
 
