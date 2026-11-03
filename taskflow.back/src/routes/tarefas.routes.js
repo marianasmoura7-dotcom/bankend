@@ -9,7 +9,7 @@ const idValido = validar (schemas.id, 'params');
 router.get('/', tarefasController.listar);
 router.get('/:id', idValido, tarefasController.buscarPorId);
 router.post('/', tarefasController.criar);   //
-router.put('/:id', validar(schemas.tarefa),tarefasController.atualizar); //autenticar
+router.put('/:id', tarefasController.atualizar); //autenticar
 router.delete('/:id', idValido, tarefasController.remover);
 
 module.exports = router;
