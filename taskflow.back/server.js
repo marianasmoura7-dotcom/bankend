@@ -21,13 +21,9 @@ const app = express();
 const criarErro = require('./src/utils/criarErro');
 const SWAGGER_CDN =
 'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.14';
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapi, {
-customCssUrl: `${SWAGGER_CDN}/swagger-ui.css`,
-customJs: [
-`${SWAGGER_CDN}/swagger-ui-bundle.js`,
-`${SWAGGER_CDN}/swagger-ui-standalone-preset.js`,
-],
-}));
+
+
+
 app.use(cors({
   origin: ['https://taskflow-beta-dun.vercel.app', 'http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -47,7 +43,13 @@ app.use(logger);
 app.get('/', (req, res) => {
   res.json({ mensagem: 'API TaskFlow rodando com sucesso!' });
 });
-
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapi, {
+customCssUrl: `${SWAGGER_CDN}/swagger-ui.css`,
+customJs: [
+`${SWAGGER_CDN}/swagger-ui-bundle.js`,
+`${SWAGGER_CDN}/swagger-ui-standalone-preset.js`,
+],
+}));
 app.use('/auth', authRoutes); // POST /auth/login
 app.use('/tarefas', tarefasRoutes); //autenticar,
 app.use('/usuarios', usuariosRoutes);
