@@ -8,7 +8,7 @@ module.exports = {
         description: 'API do TaskFlow · PROGRAMADOR FULL STACK',
 
     },
-    serves: [{url: ' http://localhost:3000' , description: 'Local'}],
+    serves: [{url: '/' , description: 'Este Servidor'}],
     security: [{bearerAuth: [] }],
     paths : {...tarefas.paths},
     
