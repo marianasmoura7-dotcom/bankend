@@ -1,6 +1,5 @@
 const prisma = require('../database/prisma');
-
-const prioridadeModel = {
+module.exports= {
     listar: async () => {
         const resultado = await prisma.prioridade.findMany({
             select: {id: true, descricao: true , cor: true},
@@ -21,10 +20,7 @@ const prioridadeModel = {
         const prioridade = await prisma.prioridade.create({
            data: {
                 descricao: dados.descricao,
-                cor: dados.cor ||'afazer',
-                usuario_id: dados.usuario_id,
-                idprojeto: dados.idprojeto,
-                id_prioridade: dados.id_prioridade,
+                cor: dados.cor,
 
             },
             include: incluirNomes,
@@ -32,4 +28,4 @@ const prioridadeModel = {
         return prioridade
     }
 }
-module.exports = prioridadeModel
+
