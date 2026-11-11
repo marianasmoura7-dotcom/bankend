@@ -1,1 +1,1 @@
-const criarErro = require ('../src/criarErro')
+const criarErro = require ('../src/utils/criarErro')

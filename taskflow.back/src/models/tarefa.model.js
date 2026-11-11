@@ -1,21 +1,12 @@
-const pool = require('../database/db.js');
-const prisma = require('../database/prisma')
 
+const prisma = require('../database/prisma')
+const formatarTarefa = require('../utils/formatarTarefa');
 const incluirNomes = {
     projetos: { select: { nome: true } },
     usuarios: { select: { nome: true } },
     prioridade: { select: { descricao: true, cor: true } },
 }
-function formatarTarefa(tarefa) {
-    const { projetos, usuarios, prioridade, ...resto } = tarefa;
-    return {
-        ...resto,
-        projeto: projetos?.nome,
-        usuario: usuarios?.nome,
-        prioridade: prioridade?.descricao,
-        prioridade_cor: prioridade?.cor
-    };
-}
+
 const TarefaModel = {
 
     listar: async () => {
