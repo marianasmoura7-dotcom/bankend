@@ -1,4 +1,4 @@
-const formatarTarefa = require('../utils/formatarTarefa');
+const formatarTarefa = require('../src/utils/formatarTarefa');
 
 function tarefaDoPrisma(tarefa) {
     return {
