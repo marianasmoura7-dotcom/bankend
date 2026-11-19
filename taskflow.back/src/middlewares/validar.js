@@ -12,28 +12,38 @@ function validar(schema, origem) {
                 continue;
             }
             if (ausente) continue;
-            if (regras.tipo === "integer") {
-                const numero = typeof valor === "string"
-                    ? Number(valor) : valor;
+
+            if (regras.tipo === "inteiro") {
+                const numero = typeof valor === 'string' ? Number(valor) : valor;
                 if (!Number.isInteger(numero) || numero <= 0) {
                     erros.push(`O campo '${campo}' deve ser inteiro positivo`);
                 }
-                else if (regras.tipo && typeof valor !== regras.tipo) {
-                    erros.push(`O campo  '${campo}' deve ser do tipo ${regras.tipo}`);
-                }
+            } else if (regras.tipo && typeof valor !== regras.tipo) {
+                erros.push(`O campo  '${campo}' deve ser do tipo ${regras.tipo}`);
+            }
+            if (regras.enum && !regras.enum.includes(valor)) {
+                erros.push(`O campo '${campo}' deve ser um dos seguintes valores: ${regras.enum.join(', ')}.`);
+            }
+            if (regras.minLength && valor.length < regras.minLength) {
+                erros.push(`O campo '${campo}' deve ter no mínimo ${regras.minLength} caracteres.`);
+            }
+            if (regras.maxLength && valor.length > regras.maxLength) {
+                erros.push(`O campo '${campo}' deve ter no máximo ${regras.maxLength} caracteres.`);
+            }
 
-                if (regras.formato === 'email') {
-                    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!re.test(valor))
-                        erros.push(`O campo '${campo}' deve ser um email válido`);
-
+            if (regras.formato === 'email') {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!re.test(valor)) {
+                    erros.push(`O campo '${campo}' deve ser um email válido.`);
                 }
             }
-            if (erros.length > 0) {
-                throw criarErro(400, "Dados inválidos", erros);
-            }
-            next()
-        };
-    }
+        }
+
+        if (erros.length > 0) {
+            throw criarErro(400, "Dados inválidos", erros);
+        }
+        return next()
+    };
 }
+
 module.exports = validar;

@@ -63,5 +63,24 @@ describe('validar', () => {
         ]);
         expect(next).not.toHaveBeenCalled();
     });
+    test ( 'id da URL: aceita "7" e barra "abc"', () => {
+        const middleware = validar ( schemas.id, 'params');
+        const nextBom = jest.fn();
+        const nextRuim = jest.fn();
+        middleware ({params: {id: '7' } }, {}, nextBom);
+        const erro = pegarErro (() => middleware ({ params: {id:'abc'}}, {}, nextRuim ))
+        expect (nextBom).toHaveBeenCalledTimes(1);
+        expect(erro.datalhes).toEqual([
+            "O campo 'id' deve ser inteiro positivo"
+        ]);
+        expect(nextRuim).not.toHaveBeenCalled();
+    });
+    test('campo opcional não enviado não gera erro', () => {
+        const middleware = validar(schemas.projeto);
+        const req = {body: {nome: 'metas 2027'}};
+        const next = jest.fn();
+        middleware(req, {}, next);
+        expect(next).toHaveBeenCalledTimes(1);
+    });
 });
  
