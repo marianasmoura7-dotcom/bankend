@@ -2,7 +2,7 @@ const formatarTarefa = require('../src/utils/formatarTarefa');
 
 function tarefaDoPrisma(tarefa) {
     return {
-        id: 1, texto: "Definir TAbelas do banco", coluna: "afazer",
+        id: 1, texto: "Definir Tabelas do banco", coluna: "afazer",
         projetos: { nome: "TaskFlow" }, usuarios: { nome: "João" }, prioridade: { descricao: "Alta", cor: "#FF0000" }
     }
 }

@@ -1,6 +1,6 @@
 const {Prisma } = require('@prisma/client');
 const criarErro = require('../src/utils/criarErro');
-const tartarErros = require('../src/middlewares/erro.middleware');
+const tratarErros = require('../src/middlewares/erro.middleware');
 
 function criarRes() {
     return {
@@ -25,6 +25,7 @@ describe('tratarErros', () => {
     test('erro sem status vira 500 e não mostra a mensagem técnica', () => {
         const erro = new Error ( 'Cannot read properties of undefined');
         const res = criarRes();
+        const next = jest.fn();
     
         tratarErros(erro, req, res, next);
 
@@ -36,6 +37,7 @@ describe('tratarErros', () => {
         const erro = new Prisma.PrismaClientKnownRequestError('Unique constraint failed on the fields: (`email`)', {
             code: 'P2002',
             clientVersion: '6.0.0',
+            meta: { target: ['email'] },
         });
         const res = criarRes();
         tratarErros(erro,{method: 'POST', url: '/usuarios'}, res, jest.fn());

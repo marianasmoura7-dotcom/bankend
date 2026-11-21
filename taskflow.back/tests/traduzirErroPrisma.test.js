@@ -10,7 +10,7 @@ describe('traduzirErroPrisma', () => {
         const erroPrisma = { code: 'P2002', meta: { target: ['email'] } };
         const erro = traduzirErroPrisma(erroPrisma, 'POST');
         expect(erro.status).toBe(409);
-        expect(erro.mensagem).toBe('Já existe um registro com este valor');
+        expect(erro.message).toBe('Já existe um registro com esse valor');
         expect(erro.detalhes[0]).toBe('Valor repetido em: email');
     });
 

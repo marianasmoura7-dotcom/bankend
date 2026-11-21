@@ -1,5 +1,5 @@
 const validar = require ('../src/middlewares/validar');
-const schemas = require = ('../src/midlewares/schemas');
+const schemas = require  ('../src/miDdlewares/schemas');
 const next = jest.fn();
 
 function pegarErro (funcao) {
@@ -32,7 +32,7 @@ describe('validar', () => {
         const next = jest.fn();
         const erro = pegarErro(() => middleware(req, {}, next));
         expect(erro.status).toBe(400);
-        expect(erro.mensagem).toBe('Dados inválidos');
+        expect(erro.message).toBe('Dados inválidos');
         expect(erro.detalhes).toEqual([
             "O campo 'texto' é obrigatório",
             "O campo 'coluna' é obrigatório",
@@ -70,7 +70,7 @@ describe('validar', () => {
         middleware ({params: {id: '7' } }, {}, nextBom);
         const erro = pegarErro (() => middleware ({ params: {id:'abc'}}, {}, nextRuim ))
         expect (nextBom).toHaveBeenCalledTimes(1);
-        expect(erro.datalhes).toEqual([
+        expect(erro.detalhes).toEqual([
             "O campo 'id' deve ser inteiro positivo"
         ]);
         expect(nextRuim).not.toHaveBeenCalled();

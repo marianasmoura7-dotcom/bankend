@@ -8,7 +8,7 @@ function validar(schema, origem) {
             const valor = dados[campo];
             const ausente = valor === undefined || valor === null || valor === '';
             if (ausente && regras.obrigatorio) {
-                erros.push(`O campo ${campo} é obrigatório.`);
+                erros.push(`O campo '${campo}' é obrigatório`);
                 continue;
             }
             if (ausente) continue;
@@ -19,22 +19,22 @@ function validar(schema, origem) {
                     erros.push(`O campo '${campo}' deve ser inteiro positivo`);
                 }
             } else if (regras.tipo && typeof valor !== regras.tipo) {
-                erros.push(`O campo  '${campo}' deve ser do tipo ${regras.tipo}`);
+                erros.push(`O campo '${campo}' deve ser do tipo ${regras.tipo}`);
             }
             if (regras.enum && !regras.enum.includes(valor)) {
-                erros.push(`O campo '${campo}' deve ser um dos seguintes valores: ${regras.enum.join(', ')}.`);
+                erros.push(`O campo '${campo}' deve ser um dos seguintes valores: ${regras.enum.join(', ')}`);
             }
             if (regras.minLength && valor.length < regras.minLength) {
-                erros.push(`O campo '${campo}' deve ter no mínimo ${regras.minLength} caracteres.`);
+                erros.push(`O campo '${campo}' deve ter no mínimo ${regras.minLength} caracteres`);
             }
             if (regras.maxLength && valor.length > regras.maxLength) {
-                erros.push(`O campo '${campo}' deve ter no máximo ${regras.maxLength} caracteres.`);
+                erros.push(`O campo '${campo}' deve ter no máximo ${regras.maxLength} caracteres`);
             }
 
             if (regras.formato === 'email') {
                 const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!re.test(valor)) {
-                    erros.push(`O campo '${campo}' deve ser um email válido.`);
+                    erros.push(`O campo '${campo}' deve ser um email válido`);
                 }
             }
         }
